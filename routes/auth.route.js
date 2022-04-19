@@ -7,5 +7,6 @@ authRouter.get('/', (req, res) => {
 })
 
 authRouter.post('/register', authControler.registration)
+authRouter.post('/login', authControler.authenticate)
 
 module.exports = authRouter;

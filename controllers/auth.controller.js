@@ -35,6 +35,42 @@ var functions = {
       }
     })
   },
+
+  authenticate: function (req, res) {
+    UserModel.findOne({
+      email: req.body.email,
+    }).then((user) => {
+      if (!user) {
+        res.status(403).json({
+          success: false,
+          message: 'ไม่พบบัญชีผู้ใช้งาน',
+        })
+      } else {
+        user.comparePassword(req.body.password, function (err, isMatch) {
+          if (isMatch && !err) {
+            var token = jwt.encode(user, config.secret)
+            res.status(200).json({
+              success: true,
+              data: {
+                id: user._id,
+                image: user.image,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                token: token,
+                maid: user.maid,
+              },
+            })
+          } else {
+            return res.status(403).json({
+              success: false,
+              message: 'รหัสผ่านผิดพลาด',
+            })
+          }
+        })
+      }
+    })
+  },
 }
 
 module.exports = functions
