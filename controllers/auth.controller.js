@@ -4,16 +4,11 @@ var config = require('../config/dbconfig')
 
 var functions = {
   registration: function (req, res) {
-    
-
-    var check = UserModel.findOne({ email: req.body.email })
-    if (check.email != null) {
-      res.status(300).json({ success: false, message: 'อีเมลล์นี้มีอยู่แล้ว' })
-    } else {
-      if (!req.body.password) {
-        res.json({ success: false, message: 'Enter password fields' })
-      } else if (!req.body.name) {
-        res.json({ success: false, message: 'Enter name fields' })
+    UserModel.findOne({ email: req.body.email }).then((user) => {
+      if (user != null) {
+        res
+          .status(300)
+          .json({ success: false, message: 'อีเมลล์นี้มีอยู่แล้ว' })
       } else {
         var newUser = UserModel({
           email: req.body.email,
@@ -38,7 +33,7 @@ var functions = {
           }
         })
       }
-    }
+    })
   },
 }
 
