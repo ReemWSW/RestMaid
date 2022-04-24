@@ -4,7 +4,8 @@ const cors = require('cors')
 const connectDB = require('./config/db')
 const passport = require('passport')
 const bodyParser = require('body-parser')
-const routes = require('./routes/auth.route')
+const authroutes = require('./routes/auth.route')
+const orderRoutes = require('./routes/order.route')
 
 connectDB()
 
@@ -17,7 +18,8 @@ if (process.env.NODE_ENV === 'development') {
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(routes)
+app.use(authroutes)
+app.use(orderRoutes)
 app.use(passport.initialize())
 require('./config/passport')(passport)
 
