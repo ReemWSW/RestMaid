@@ -11,10 +11,12 @@ var functions = {
           .json({ success: false, message: 'อีเมลล์นี้มีอยู่แล้ว' })
       } else {
         var newUser = UserModel({
+          image: req.body.image,
           email: req.body.email,
           name: req.body.name,
           password: req.body.password,
           phone: req.body.phone,
+          maid: false,
         })
 
         newUser.save(function (err, newUser) {
