@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Enum = require('./Enum')
 var Schema = mongoose.Schema
 
 var user = new Schema({
@@ -6,6 +7,9 @@ var user = new Schema({
   name: String,
   phone: String,
 })
+
+
+
 var orderSchema = new Schema({
   customer: user,
   maid: user,
@@ -19,6 +23,8 @@ var orderSchema = new Schema({
   type: String,
   detail: String,
   datetime: Date,
+  status: { type: Enum, enum: ['WAIT', 'ACCEPT', 'SUCCESS'] },
+  score: { type: Number, default: 0 },
 })
 
 module.exports = mongoose.model('Order', orderSchema)
