@@ -6,6 +6,7 @@ const passport = require('passport')
 const bodyParser = require('body-parser')
 const authroutes = require('./routes/auth.route')
 const orderRoutes = require('./routes/order.route')
+const userRoutes = require('./routes/user.route')
 
 connectDB()
 
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(authroutes)
 app.use(orderRoutes)
+app.use(userRoutes)
 app.use(passport.initialize())
 require('./config/passport')(passport)
 
