@@ -10,9 +10,9 @@ var functions = {
             phone: req.body.customer.phone,
           },
           maid: {
-            image: req.body.maid.image,
-            name: req.body.maid.name,
-            phone: req.body.maid.phone,
+            image:"",
+            name: "",
+            phone: "",
           },
           address: {
             detail: req.body.address.detail,
