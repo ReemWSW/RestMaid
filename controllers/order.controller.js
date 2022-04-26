@@ -53,28 +53,53 @@ var functions = {
     if (!req.body) {
       res.status(404).json({ success: false, message: 'ไม่สามรถทำรายการได้' })
     } else {
-      OrderModel.find({
-        "customer._id":  req.body.id 
-      })
-        .then((orders) => {
-          for (var index in orders) {
-            if (orders[index]['status'] === 'EnumOrder.WAIT')
-              waitOrder.push(orders[index])
-            if (orders[index]['status'] === 'EnumOrder.ACCEPT')
-              acceptOrder.push(orders[index])
-            if (orders[index]['status'] === 'EnumOrder.SUCCESS')
-              successOrder.push(orders[index])
-          }
+      if (req.body.customer) {
+        OrderModel.find({
+          'customer._id': req.body.id,
+        })
+          .then((orders) => {
+            for (var index in orders) {
+              if (orders[index]['status'] === 'EnumOrder.WAIT')
+                waitOrder.push(orders[index])
+              if (orders[index]['status'] === 'EnumOrder.ACCEPT')
+                acceptOrder.push(orders[index])
+              if (orders[index]['status'] === 'EnumOrder.SUCCESS')
+                successOrder.push(orders[index])
+            }
 
-          res.status(200).json({
-            success: true,
-            message: 'พบข้อมูลแล้ว',
-            data: { waitOrder, acceptOrder, successOrder },
+            res.status(200).json({
+              success: true,
+              message: 'พบข้อมูลแล้ว',
+              data: { waitOrder, acceptOrder, successOrder },
+            })
           })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else {
+        OrderModel.find({})
+          .then((orders) => {
+            for (var index in orders) {
+              if (orders[index]['customer']['_id'] != req.body.id) {
+                if (orders[index]['status'] === 'EnumOrder.WAIT')
+                  waitOrder.push(orders[index])
+                if (orders[index]['status'] === 'EnumOrder.ACCEPT')
+                  acceptOrder.push(orders[index])
+                if (orders[index]['status'] === 'EnumOrder.SUCCESS')
+                  successOrder.push(orders[index])
+              }
+            }
+
+            res.status(200).json({
+              success: true,
+              message: 'พบข้อมูลแล้ว',
+              data: { waitOrder, acceptOrder, successOrder },
+            })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
     }
   },
 }
