@@ -102,5 +102,28 @@ var functions = {
       }
     }
   },
+
+  setStatusOrder: function (req, res) {
+    if (!req.body) {
+      res.json({ success: false, message: 'ไม่สามรถส่งงานได้' })
+    } else {
+      OrderModel.findByIdAndUpdate(
+        { _id: req.body.order },
+        { $set: { status: req.body.status } },
+      )
+        .then((order) => {
+          res.status(200).json({
+            success: true,
+            message: 'บันทึกงานสำเร็จแล้ว',
+            data: order,
+          })
+        })
+        .catch((e) => {
+          res
+            .status(404)
+            .json({ success: false, message: 'ไม่สามารถบันทึกงานได้' })
+        })
+    }
+  },
 }
 module.exports = functions
