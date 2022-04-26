@@ -5,6 +5,7 @@ var functions = {
     if (req.body) {
       var newOrder = OrderModel({
         customer: {
+          _id: req.body.customer.id,
           image: req.body.customer.image,
           name: req.body.customer.name,
           phone: req.body.customer.phone,
@@ -28,7 +29,6 @@ var functions = {
       })
 
       console.log(newOrder)
-
       newOrder.save(function (err, newOrder) {
         if (err) {
           console.log(err)
@@ -54,8 +54,7 @@ var functions = {
       res.status(404).json({ success: false, message: 'ไม่สามรถทำรายการได้' })
     } else {
       OrderModel.find({
-        'address.province': req.body.province,
-        'address.amphure': req.body.amphure,
+        "customer._id":  req.body.id 
       })
         .then((orders) => {
           for (var index in orders) {
@@ -71,7 +70,6 @@ var functions = {
             success: true,
             message: 'พบข้อมูลแล้ว',
             data: { waitOrder, acceptOrder, successOrder },
-            // data: orders,
           })
         })
         .catch((err) => {

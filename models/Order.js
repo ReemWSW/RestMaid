@@ -3,6 +3,7 @@ const Enum = require('./Enum')
 var Schema = mongoose.Schema
 
 var user = new Schema({
+  _id: String,
   image: String,
   name: String,
   phone: String,
