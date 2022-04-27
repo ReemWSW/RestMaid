@@ -77,7 +77,9 @@ var functions = {
             console.log(err)
           })
       } else {
-        OrderModel.find({})
+        OrderModel.find({
+          'address.tombon': req.body.tombon,
+        })
           .then((orders) => {
             for (var index in orders) {
               if (orders[index]['customer']['_id'] != req.body.id) {
