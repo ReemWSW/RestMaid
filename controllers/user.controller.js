@@ -7,20 +7,34 @@ var functions = {
     } else {
       var id = req.body.id
       var maid = req.body.maid
-      UserModel.updateOne({ _id: id }, { $set: { maid: maid } }, function (
-        err,
-        user,
-      ) {
-        if (err) {
-          res.status(404).json({ success: false, message: 'เกิดข้อผิดพลาด' })
-        } else {
-          console.log(user)
+      var tombon = req.body.tombon
+      var amphure = req.body.amphure
+      var province = req.body.province
+      var province = req.body.province
+      var category = req.body.category
+      UserModel.updateOne(
+        { _id: id },
+        {
+          $set: {
+            maid: maid,
+            address: {
+              tombon: tombon,
+              amphure: amphure,
+              province: province,
+            },
+            category: category,
+          },
+        },
+      )
+        .then((value) => {
           res.status(200).json({
             success: true,
             message: 'อัพเดทสำเร็จแล้ว',
           })
-        }
-      })
+        })
+        .catch(() =>
+          res.status(404).json({ success: false, message: 'เกิดข้อผิดพลาด' }),
+        )
     }
   },
 }
