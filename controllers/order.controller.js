@@ -79,6 +79,7 @@ var functions = {
       } else {
         OrderModel.find({
           'address.tombon': req.body.tombon,
+          categoty: req.body.categoty,
         })
           .then((orders) => {
             for (var index in orders) {
