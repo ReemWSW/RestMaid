@@ -6,7 +6,8 @@ var functions = {
       res.json({ success: false, message: 'เกิดข้อผิดพลาด' })
     } else {
       var id = req.body.id
-      UserModel.updateOne({ _id: id }, { $set: { maid: true } }, function (
+      var maid = req.body.maid
+      UserModel.updateOne({ _id: id }, { $set: { maid: maid } }, function (
         err,
         user,
       ) {
