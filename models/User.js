@@ -8,6 +8,12 @@ var userSchema = new Schema({
   password: String,
   phone: String,
   maid: { type: Boolean, default: false },
+  address: {
+    tombon: String,
+    amphure: String,
+    province: String,
+  },
+  category: String,
 })
 
 userSchema.pre('save', function (next) {
