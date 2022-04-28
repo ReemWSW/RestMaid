@@ -61,6 +61,7 @@ var functions = {
                 phone: user.phone,
                 token: token,
                 maid: user.maid,
+                datetime: user.datetime,
               },
             })
           } else {

@@ -14,6 +14,7 @@ var userSchema = new Schema({
     province: String,
   },
   category: String,
+  datetime: Date,
 })
 
 userSchema.pre('save', function (next) {

@@ -10,8 +10,8 @@ var functions = {
       var tombon = req.body.tombon
       var amphure = req.body.amphure
       var province = req.body.province
-      var province = req.body.province
       var category = req.body.category
+      var datetime = req.body.datetime
       UserModel.updateOne(
         { _id: id },
         {
@@ -23,6 +23,7 @@ var functions = {
               province: province,
             },
             category: category,
+            datetime: datetime,
           },
         },
       )
