@@ -48,6 +48,7 @@ var functions = {
           message: 'ไม่พบบัญชีผู้ใช้งาน',
         })
       } else {
+        console.log(user);
         user.comparePassword(req.body.password, function (err, isMatch) {
           if (isMatch && !err) {
             var token = jwt.encode(user, config.secret)
@@ -62,6 +63,12 @@ var functions = {
                 token: token,
                 maid: user.maid,
                 datetime: user.datetime,
+                category: user.category,
+                address: {
+                  tombon: user.address.tombon,
+                  amphure: user.address.amphure,
+                  province: user.address.province,
+                },
               },
             })
           } else {
